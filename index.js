@@ -7,6 +7,7 @@ for (let i = 0; i < numberOfDrums; i++) {
   document.querySelectorAll(".drum")[i].addEventListener("click", function() {
     var buttonInnerHTML = this.innerHTML;
     makeSound(buttonInnerHTML);
+    buttonAnimation(buttonInnerHTML);
   });
 
 }
@@ -14,11 +15,8 @@ for (let i = 0; i < numberOfDrums; i++) {
 //Detecting Keyboard Press
 document.addEventListener("keypress",function(event){
   makeSound(event.key);
+  buttonAnimation(event.key);
 });
-
-
-
-
 
 
 
@@ -64,4 +62,14 @@ function makeSound(key) {
     default: console.log(key);
 
   }
+}
+
+function buttonAnimation(currentKey) {
+  //这一步很重要，因为selector选中的classname只有单一的字母,如“k”,"l"，
+  //但是实际的是“.k”，所以要拼接一个dot在前面
+  var activeButton = document.querySelector("." + currentKey);
+  activeButton.classList.add("pressed");
+  setTimeout(function(){
+    activeButton.classList.remove("pressed");
+  }, 100);
 }
